@@ -10,5 +10,7 @@ export const createNotificationController = async (
 
   const result = await NotificationService.create(data);
 
-  return reply.status(202).send(result);
+  return result.success
+    ? reply.status(202).send(result)
+    : reply.status(400).send(result);
 };

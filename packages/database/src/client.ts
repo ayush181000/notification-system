@@ -11,12 +11,11 @@ const pool = new pg.Pool({
 
 const originalQuery = pool.query.bind(pool);
 
-// ✅ Safe subset of supported signatures
 type QueryArgs =
   | [queryText: string, values?: any[]]
   | [config: { text: string; values?: any[] }];
 
-const tracedQuery = async (...args: QueryArgs): Promise<QueryResult<any>> => {
+const tracedQuery = async (...args: any[]) => {
   const start = performance.now();
 
   let queryText = "unknown";
@@ -25,7 +24,7 @@ const tracedQuery = async (...args: QueryArgs): Promise<QueryResult<any>> => {
   if (typeof args[0] === "string") {
     queryText = args[0];
     params = args[1];
-  } else {
+  } else if (args[0] && typeof args[0] === "object") {
     queryText = args[0].text ?? "unknown";
     params = args[0].values;
   }
@@ -34,14 +33,7 @@ const tracedQuery = async (...args: QueryArgs): Promise<QueryResult<any>> => {
   const dbLogger = baseLogger.child({ module: "db" });
 
   try {
-    // 🔥 NO SPREAD → no TS error
-    let result: QueryResult<any>;
-
-    if (typeof args[0] === "string") {
-      result = await originalQuery(args[0], args[1]);
-    } else {
-      result = await originalQuery(args[0]);
-    }
+    const result = await (originalQuery as any)(...args);
 
     const duration = performance.now() - start;
 
@@ -54,16 +46,6 @@ const tracedQuery = async (...args: QueryArgs): Promise<QueryResult<any>> => {
       },
       "SQL Query executed",
     );
-
-    if (duration > 100) {
-      dbLogger.warn(
-        {
-          query: queryText,
-          duration: `${duration.toFixed(2)}ms`,
-        },
-        "Slow query detected",
-      );
-    }
 
     return result;
   } catch (error) {
@@ -83,7 +65,6 @@ const tracedQuery = async (...args: QueryArgs): Promise<QueryResult<any>> => {
   }
 };
 
-// ✅ Final assignment
 pool.query = tracedQuery as unknown as Pool["query"];
 
 export const db = drizzle(pool);

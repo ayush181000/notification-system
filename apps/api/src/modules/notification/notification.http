@@ -1,0 +1,22 @@
+### Health Check
+GET http://localhost:3000/health
+
+###
+
+### Create Notification
+POST http://localhost:3000/notification
+Content-Type: application/json
+
+{
+  "userId": "user_123",
+  "channel": "email",
+  "payload": {
+    "message": "Hello"
+  },
+  "priority": "high"
+}
+
+###
+
+### Get Notification
+GET http://localhost:3000/notification/123
