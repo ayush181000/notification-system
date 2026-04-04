@@ -1,3 +1,4 @@
+import type { InferSelectModel } from "drizzle-orm";
 import {
   pgTable,
   uuid,
@@ -31,18 +32,18 @@ export const notifications = pgTable(
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
   },
-  (table) => {
-    return {
-      userIdx: index("idx_user_id").on(table.userId),
-      statusIdx: index("idx_status").on(table.status),
-      createdIdx: index("idx_created_at").on(table.createdAt),
-      idemopotencyIdex: uniqueIndex("idx_idempotency_key_unique").on(
-        table.idempotencyKey,
-      ),
-      statusCreatedIdx: index("idx_status_created").on(
-        table.status,
-        table.createdAt,
-      ),
-    };
-  },
+  (table) => ({
+    userIdx: index("idx_user_id").on(table.userId),
+    statusIdx: index("idx_status").on(table.status),
+    createdIdx: index("idx_created_at").on(table.createdAt),
+    idempotencyIdx: uniqueIndex("idx_idempotency_key_unique").on(
+      table.idempotencyKey,
+    ),
+    statusCreatedIdx: index("idx_status_created").on(
+      table.status,
+      table.createdAt,
+    ),
+  }),
 );
+
+export type Notification = InferSelectModel<typeof notifications>;
