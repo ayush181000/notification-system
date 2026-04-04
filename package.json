@@ -1,0 +1,49 @@
+{
+  "name": "notification-system",
+  "module": "src",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@vitest/ui": "^4.1.2",
+    "turbo": "^2.9.3"
+  },
+  "peerDependencies": {
+    "typescript": "^6.0.2"
+  },
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "//app": " 🚀 Scripts for running application",
+    "dev": "turbo run dev",
+    "dev:api": "bun --watch apps/api/src/server.ts",
+    "start": "bun apps/api/src/server.ts",
+    "build": "turbo run build",
+    "clean": "rm -rf node_modules .turbo",
+    "//testing": " 🧪 Scripts for running all the tests",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:unit": "vitest run --dir apps",
+    "test:integration": "vitest run --dir tests/integration",
+    "//docker": " 🐳 Scripts for running docker containers",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:reset": "docker compose down -v && docker compose up -d",
+    "docker:logs": "docker compose logs -f",
+    "docker:ps": "docker compose ps",
+    "//database": " 🧱 Scripts related to database",
+    "db:reset": "docker compose down -v && docker compose up -d",
+    "db:logs": "docker compose logs postgres",
+    "//quality": " 🧹 Scripts for quality purpose",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "//env": " ⚙️ Scipts for Env based running",
+    "dev:env": "NODE_ENV=development bun --watch apps/api/src/server.ts",
+    "test:env": "NODE_ENV=test vitest",
+    "start:prod": "NODE_ENV=production bun apps/api/src/server.ts"
+  }
+}
