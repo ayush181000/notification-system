@@ -6,6 +6,7 @@ import {
   jsonb,
   integer,
   index,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 export const notifications = pgTable(
@@ -35,6 +36,9 @@ export const notifications = pgTable(
       userIdx: index("idx_user_id").on(table.userId),
       statusIdx: index("idx_status").on(table.status),
       createdIdx: index("idx_created_at").on(table.createdAt),
+      idemopotencyIdex: uniqueIndex("idx_idempotency_key_unique").on(
+        table.idempotencyKey,
+      ),
       statusCreatedIdx: index("idx_status_created").on(
         table.status,
         table.createdAt,
