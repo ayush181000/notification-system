@@ -12,11 +12,9 @@ async function main() {
     genReqId: () => generateUUIDV7(),
   });
 
-  app.addHook("onRequest", (request, _reply, done) => {
+  app.addHook("onRequest", async (request) => {
     const childLogger = request.log.child({ module: "request" });
-    asyncLocalStorage.run({ logger: childLogger }, () => {
-      done();
-    });
+    asyncLocalStorage.enterWith({ logger: childLogger });
   });
 
   await app.register(routes);

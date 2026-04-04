@@ -6,7 +6,7 @@ import {
   type CreateNotificationInput,
   type ReturnInterface,
 } from "./notification.types";
-import { DatabaseError, ERROR_CODES } from "@errors/src";
+import { DatabaseError, ERROR_CODES } from "@errors";
 
 export class NotificationService {
   static async create(
@@ -43,12 +43,13 @@ export class NotificationService {
       }
       return { success: true, data: row };
     } catch (error: unknown) {
-      let e: unknown = error;
-      while (e && typeof e === "object") {
-        const code = (e as { code?: unknown }).code;
-        if (code === "23505") {
-          throw new DatabaseError(ERROR_CODES.DUPLICATE_RESOURCE);
-        }
+      if (
+        error &&
+        typeof error === "object" &&
+        "code" in error &&
+        (error as any).code === "23505"
+      ) {
+        throw new DatabaseError(undefined, "Duplicate resource");
       }
 
       throw new DatabaseError(ERROR_CODES.DATABASE_ERROR);
