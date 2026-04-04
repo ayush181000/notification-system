@@ -30,6 +30,7 @@
       "name": "api",
       "dependencies": {
         "@config": "workspace:*",
+        "@context": "workspace:*",
         "@database": "workspace:*",
         "@logger": "workspace:*",
         "@utils": "workspace:*",
@@ -56,10 +57,20 @@
         "typescript": "^5",
       },
     },
+    "packages/context": {
+      "name": "@context",
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
     "packages/database": {
       "name": "@database",
       "dependencies": {
         "@config": "workspace:*",
+        "@context": "workspace:*",
         "@logger": "workspace:*",
         "drizzle-orm": "^0.45.2",
         "pg": "^8.20.0",
@@ -106,6 +117,8 @@
   },
   "packages": {
     "@config": ["@config@workspace:packages/config"],
+
+    "@context": ["@context@workspace:packages/context"],
 
     "@database": ["@database@workspace:packages/database"],
 
