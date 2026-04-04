@@ -4,6 +4,7 @@ import { logger } from "@logger";
 import { asyncLocalStorage } from "@context";
 import routes from "./routes";
 import { generateUUIDV7 } from "@utils";
+import { globalErrorHandler } from "@errors";
 
 async function main() {
   const app = Fastify({
@@ -11,19 +12,16 @@ async function main() {
     genReqId: () => generateUUIDV7(),
   });
 
-  app.addHook("onRequest", async (req, reply) => {
-    const childLogger = req.log.child({
-      module: "request", // base context
+  app.addHook("onRequest", (request, _reply, done) => {
+    const childLogger = request.log.child({ module: "request" });
+    asyncLocalStorage.run({ logger: childLogger }, () => {
+      done();
     });
-
-    asyncLocalStorage.run({ logger: childLogger }, () => {});
-  });
-
-  app.get("/health", async () => {
-    return { status: "ok" };
   });
 
   await app.register(routes);
+
+  app.setErrorHandler(globalErrorHandler);
 
   await app.listen({ port: config.PORT });
 }

@@ -32,6 +32,7 @@
         "@config": "workspace:*",
         "@context": "workspace:*",
         "@database": "workspace:*",
+        "@errors": "workspace:*",
         "@logger": "workspace:*",
         "@utils": "workspace:*",
         "fastify": "^5.8.4",
@@ -79,6 +80,15 @@
         "@types/bun": "latest",
         "@types/pg": "^8.20.0",
         "drizzle-kit": "^0.31.10",
+      },
+    },
+    "packages/errors": {
+      "name": "@errors",
+      "dependencies": {
+        "@logger": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
       },
     },
     "packages/logger": {
@@ -129,6 +139,8 @@
     "@emnapi/runtime": ["@emnapi/runtime@1.9.2", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-3U4+MIWHImeyu1wnmVygh5WlgfYDtyf0k8AbLhMFxOipihf6nrWC4syIm/SwEeec0mNSafiiNnMJwbza/Is6Lw=="],
 
     "@emnapi/wasi-threads": ["@emnapi/wasi-threads@1.2.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-uTII7OYF+/Mes/MrcIOYp5yOtSMLBWSIoLPpcgwipoiKbli6k322tcoFsxoIIxPDqW01SQGAgko4EzZi2BNv2w=="],
+
+    "@errors": ["@errors@workspace:packages/errors"],
 
     "@esbuild-kit/core-utils": ["@esbuild-kit/core-utils@3.3.2", "", { "dependencies": { "esbuild": "~0.18.20", "source-map-support": "^0.5.21" } }, "sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ=="],
 

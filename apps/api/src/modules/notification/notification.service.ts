@@ -3,16 +3,15 @@ import { notifications } from "@database";
 
 import { generateIdempotencyKey, generateUUIDV7 } from "@utils";
 import {
-  Errors,
   type CreateNotificationInput,
-  type ErrorMessages,
   type ReturnInterface,
 } from "./notification.types";
+import { DatabaseError, ERROR_CODES } from "@errors/src";
 
 export class NotificationService {
   static async create(
     input: CreateNotificationInput,
-  ): Promise<ReturnInterface<Notification, ErrorMessages>> {
+  ): Promise<ReturnInterface<Notification>> {
     const id = generateUUIDV7();
 
     const idempotencyKey = generateIdempotencyKey({
@@ -39,28 +38,20 @@ export class NotificationService {
         .returning();
 
       const [row] = result;
-      if (row !== undefined) {
-        return { success: true, data: row };
+      if (row === undefined) {
+        throw new DatabaseError(ERROR_CODES.DATABASE_ERROR);
       }
-
-      return {
-        success: false,
-        error: Errors.ERROR_NOTIFICATION_INSERTION_FAILED,
-      };
+      return { success: true, data: row };
     } catch (error: unknown) {
       let e: unknown = error;
       while (e && typeof e === "object") {
         const code = (e as { code?: unknown }).code;
         if (code === "23505") {
-          return { success: false, error: Errors.ERROR_NOTIFICATION_DUPLICATE };
+          throw new DatabaseError(ERROR_CODES.DUPLICATE_RESOURCE);
         }
-        e = (e as { cause?: unknown }).cause;
       }
 
-      return {
-        success: false,
-        error: Errors.ERROR_NOTIFICATION_INSERTION_FAILED,
-      };
+      throw new DatabaseError(ERROR_CODES.DATABASE_ERROR);
     }
   }
 }
