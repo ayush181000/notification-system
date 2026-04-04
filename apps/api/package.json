@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@config": "workspace:*",
+    "@database": "workspace:*",
     "@logger": "workspace:*",
+    "@utils": "workspace:*",
     "fastify": "^5.8.4",
+    "uuid": "^13.0.0",
     "zod": "^4.3.6"
   }
 }
