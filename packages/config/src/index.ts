@@ -13,7 +13,7 @@ dotenv.config({
 
 const envSchema = z.object({
   NODE_ENV: z
-    .enum(["development", "staging", "production"])
+    .enum(["development", "staging", "production", "test"])
     .default("development"),
   PORT: z.string().default("3000"),
 
@@ -25,7 +25,6 @@ const envSchema = z.object({
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
 });
 
-console.log(process.env);
 const parsed = envSchema.safeParse(process.env);
 
 if (!parsed.success) {

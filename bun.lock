@@ -6,8 +6,10 @@
       "name": "notification-system",
       "devDependencies": {
         "@types/bun": "latest",
+        "@types/node": "^25.5.2",
         "@vitest/ui": "^4.1.2",
         "turbo": "^2.9.3",
+        "vitest": "^4.1.2",
       },
       "peerDependencies": {
         "typescript": "^6.0.2",
