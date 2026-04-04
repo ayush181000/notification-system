@@ -1,7 +1,15 @@
 import * as dotenv from "dotenv";
 import { z } from "zod";
+import { join } from "path";
 
-dotenv.config();
+const envPath = join(
+  __dirname,
+  "..",
+  process.env.NODE_ENV === "test" ? ".env.test" : ".env",
+);
+dotenv.config({
+  path: envPath,
+});
 
 const envSchema = z.object({
   NODE_ENV: z
@@ -12,11 +20,12 @@ const envSchema = z.object({
   // future-proofing
   KAFKA_BROKERS: z.string().optional(),
   REDIS_URL: z.string().optional(),
-  DATABASE_URL: z.string().optional(),
+  DATABASE_URL: z.string(),
 
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
 });
 
+console.log(process.env);
 const parsed = envSchema.safeParse(process.env);
 
 if (!parsed.success) {
