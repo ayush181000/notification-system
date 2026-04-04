@@ -1,8 +1,13 @@
 import pino from "pino";
 import { config } from "@config";
+import { generateUUIDV7 } from "@utils";
+import type { FastifyServerOptions } from "fastify";
+type LoggerOption = FastifyServerOptions["logger"];
 
-export const logger = pino({
+export const logger: LoggerOption = {
   level: config.LOG_LEVEL,
+  genReqId: (_req) => generateUUIDV7(),
+  safe: true,
 
   base: {
     service: "notification-system",
@@ -19,4 +24,4 @@ export const logger = pino({
           },
         }
       : undefined,
-});
+};
