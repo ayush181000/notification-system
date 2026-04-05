@@ -1,5 +1,4 @@
-import type { FastifyReply, FastifyRequest } from "fastify";
-import { flattenError, z } from "zod";
+import { z } from "zod";
 
 export const notificationChannelSchema = z.enum([
   "email",
@@ -24,19 +23,3 @@ export type CreateNotificationBody = z.infer<
 >;
 
 export type NotificationChannel = z.infer<typeof notificationChannelSchema>;
-
-export async function validateCreateNotificationBody(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const result = createNotificationBodySchema.safeParse(request.body);
-  if (!result.success) {
-    return reply.status(400).send({
-      success: false,
-      code: "VALIDATION_ERROR",
-      message: "Invalid request body",
-      errors: flattenError(result.error),
-    });
-  }
-  request.body = result.data;
-}

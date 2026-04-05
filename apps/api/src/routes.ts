@@ -1,12 +1,16 @@
 import { type FastifyInstance, type FastifyPluginAsync } from "fastify";
-import { createNotificationController } from "./modules/notification/notification.controller";
+import NotificationController from "./modules/notification/notification.controller";
 import {
   createNotificationBodySchema,
   type CreateNotificationBody,
 } from "./modules/notification/notification.schema";
 import { successResponseHelper } from "@utils";
-import { createTenantController } from "./modules/tenant/tenant.controller";
+import TenantController from "./modules/tenant/tenant.controller";
 import { validateBody } from "./modules/middleware/validator";
+import {
+  createTenantSchema,
+  type CreateTenantBody,
+} from "./modules/tenant/tenant.schema";
 
 const routes: FastifyPluginAsync = async (app: FastifyInstance) => {
   app.get("/health", async (_request, reply) => {
@@ -16,10 +20,14 @@ const routes: FastifyPluginAsync = async (app: FastifyInstance) => {
   app.post<{ Body: CreateNotificationBody }>(
     "/notification",
     { preValidation: validateBody(createNotificationBodySchema) },
-    createNotificationController,
+    NotificationController.createNotificationController,
   );
 
-  // app.post("/tenant", createTenantController);
+  app.post<{ Body: CreateTenantBody }>(
+    "/tenant",
+    { preValidation: validateBody(createTenantSchema) },
+    TenantController.createTenantController,
+  );
 };
 
 export default routes;

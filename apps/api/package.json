@@ -16,6 +16,7 @@
     "@utils": "workspace:*",
     "@errors": "workspace:*",
     "@context": "workspace:*",
+    "@types": "workspace:*",
     "fastify": "^5.8.4",
     "zod": "^4.3.6"
   }

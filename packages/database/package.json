@@ -17,6 +17,7 @@
     "@config": "workspace:*",
     "@logger": "workspace:*",
     "@context": "workspace:*",
+    "@errors": "workspace:*",
     "drizzle-orm": "^0.45.2",
     "pg": "^8.20.0"
   }
