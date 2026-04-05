@@ -5,6 +5,7 @@ export class AppError extends Error {
   public readonly code: string;
   public readonly success: boolean;
   public readonly data?: unknown;
+  public readonly error?: string;
 
   constructor(error: ErrorCodeType, data?: unknown, customMessage?: string) {
     super(customMessage || error.message);

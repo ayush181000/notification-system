@@ -2,11 +2,12 @@ import { type FastifyReply, type FastifyRequest } from "fastify";
 import { AppError } from "../errors/AppError";
 import { logger } from "@logger";
 import { ERROR_CODES } from "../constants/ErrorCodes";
+import type { ApiResponse } from "@types";
 
 export function globalErrorHandler(
   error: any,
   request: FastifyRequest,
-  reply: FastifyReply,
+  reply: FastifyReply<{ Reply: ApiResponse<null> }>,
 ) {
   // Known error
   if (error instanceof AppError) {
@@ -17,10 +18,11 @@ export function globalErrorHandler(
     });
 
     return reply.status(error.httpCode).send({
-      success: error.success,
+      success: false,
       code: error.code,
       message: error.message,
-      data: error.data ?? null,
+      data: null,
+      error: error.error ?? null,
     });
   }
 
@@ -34,5 +36,7 @@ export function globalErrorHandler(
     success: ERROR_CODES.INTERNAL_ERROR.success,
     code: ERROR_CODES.INTERNAL_ERROR.code,
     message: ERROR_CODES.INTERNAL_ERROR.message,
+    data: null,
+    error: error.error ?? null,
   });
 }

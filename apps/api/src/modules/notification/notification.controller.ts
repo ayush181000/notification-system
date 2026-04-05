@@ -1,10 +1,10 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { NotificationService } from "./notification.service";
-import type { CreateNotificationInput } from "./notification.types";
+import type { CreateNotificationBody } from "./notification.types";
 import { successResponseHelper } from "@utils";
 
 export const createNotificationController = async (
-  request: FastifyRequest<{ Body: CreateNotificationInput }>,
+  request: FastifyRequest<{ Body: CreateNotificationBody }>,
   reply: FastifyReply,
 ) => {
   const data = request.body;

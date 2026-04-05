@@ -1,12 +1,4 @@
-export type Channel = "email" | "sms" | "whatsapp" | "push";
-
-export interface CreateNotificationInput {
-  userId: string;
-  channel: Channel;
-  payload: Record<string, any>;
-  priority?: "low" | "medium" | "high";
-  scheduledAt?: Date;
-}
+export type { CreateNotificationBody } from "./notification.schema";
 
 export type ReturnInterface<T> = {
   success: true;
