@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1775304825897,
-      "tag": "0000_secret_epoch",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1775329067441,
-      "tag": "0001_omniscient_dexter_bennett",
+      "when": 1775382645085,
+      "tag": "0000_closed_revanche",
       "breakpoints": true
     }
   ]

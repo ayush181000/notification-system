@@ -5,45 +5,61 @@ import {
   text,
   timestamp,
   jsonb,
-  integer,
   index,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
+// ------------------- NOTIFICATIONS -------------------
 export const notifications = pgTable(
   "notifications",
   {
     id: uuid("id").primaryKey(),
-
-    userId: text("user_id").notNull(),
+    tenantId: uuid("tenant_id").notNull(),
+    userId: uuid("user_id").notNull(),
     channel: text("channel").notNull(),
-
+    templateId: uuid("template_id"),
     payload: jsonb("payload").notNull(),
-
+    attachments: jsonb("attachments"),
     status: text("status").notNull(),
     priority: text("priority").notNull(),
-
-    retries: integer("retries").default(0),
-
     scheduledAt: timestamp("scheduled_at"),
-
-    idempotencyKey: text("idempotency_key"),
-
+    idempotencyKey: text("idempotency_key").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").defaultNow(),
   },
   (table) => ({
-    userIdx: index("idx_user_id").on(table.userId),
-    statusIdx: index("idx_status").on(table.status),
-    createdIdx: index("idx_created_at").on(table.createdAt),
-    idempotencyIdx: uniqueIndex("idx_idempotency_key_unique").on(
-      table.idempotencyKey,
-    ),
-    statusCreatedIdx: index("idx_status_created").on(
+    userStatusIndex: index("idx_notifications_user_status").on(
+      table.userId,
+      table.channel,
       table.status,
-      table.createdAt,
+    ),
+    scheduledIndex: index("idx_notifications_scheduled").on(table.scheduledAt),
+    idempotencyIndex: uniqueIndex("idx_notifications_idempotency").on(
+      table.idempotencyKey,
     ),
   }),
 );
 
 export type Notification = InferSelectModel<typeof notifications>;
+
+// ------------------- NOTIFICATION EVENTS -------------------
+export const notificationEvents = pgTable(
+  "notification_events",
+  {
+    id: uuid("id").primaryKey(),
+    tenantId: uuid("tenant_id").notNull(),
+    notificationId: uuid("notification_id").notNull(),
+    eventType: text("event_type").notNull(),
+    metadata: jsonb("metadata"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => ({
+    notificationIndex: index("idx_notification_events_notification").on(
+      table.notificationId,
+    ),
+    eventTypeIndex: index("idx_notification_events_event_type").on(
+      table.eventType,
+    ),
+  }),
+);
+
+export type NotificationEvents = InferSelectModel<typeof notificationEvents>;

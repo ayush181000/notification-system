@@ -24,6 +24,7 @@ export class NotificationService {
       const result = await db
         .insert(notifications)
         .values({
+          tenantId: "1",
           id,
           userId: input.userId,
           channel: input.channel,
