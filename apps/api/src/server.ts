@@ -5,6 +5,11 @@ import { asyncLocalStorage } from "@context";
 import routes from "./routes";
 import { generateUUIDV7 } from "@utils";
 import { globalErrorHandler } from "@errors";
+import {
+  type ZodTypeProvider,
+  serializerCompiler,
+  validatorCompiler,
+} from "fastify-type-provider-zod";
 
 async function main() {
   const app = Fastify({
@@ -12,16 +17,26 @@ async function main() {
     genReqId: () => generateUUIDV7(),
   });
 
-  app.addHook("onRequest", async (request) => {
+  // Attach Zod to Fastify
+  app.setValidatorCompiler(validatorCompiler);
+  app.setSerializerCompiler(serializerCompiler);
+
+  // Enable type inference across app
+  const server = app.withTypeProvider<ZodTypeProvider>();
+
+  // Request-scoped logger (ALS)
+  server.addHook("onRequest", async (request) => {
     const childLogger = request.log.child({ module: "request" });
     asyncLocalStorage.enterWith({ logger: childLogger });
   });
 
-  await app.register(routes);
+  // Register routes (use `server`, not `app`)
+  await server.register(routes);
 
-  app.setErrorHandler(globalErrorHandler);
+  // 🔥 Global error handler
+  server.setErrorHandler(globalErrorHandler);
 
-  await app.listen({ port: config.PORT });
+  await server.listen({ port: config.PORT });
 }
 
 main().catch((err) => {

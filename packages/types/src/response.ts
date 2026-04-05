@@ -1,4 +1,4 @@
-export type ApiResponse<T extends Record<string, any> | any> =
+export type ApiResponse<T extends Record<string, any> = any> =
   | {
       success: true;
       code: string;

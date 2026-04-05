@@ -11,7 +11,6 @@ class TenantController {
     reply: FastifyReply,
   ) {
     const result = TenantService.create(request.body);
-
     return successResponseHelper(reply, result, 201);
   }
 }

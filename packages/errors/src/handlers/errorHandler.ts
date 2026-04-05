@@ -7,7 +7,7 @@ import type { ApiResponse } from "@types";
 export function globalErrorHandler(
   error: any,
   request: FastifyRequest,
-  reply: FastifyReply<{ Reply: ApiResponse<null> }>,
+  reply: FastifyReply,
 ) {
   // Known error
   if (error instanceof AppError) {
