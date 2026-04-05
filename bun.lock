@@ -21,6 +21,7 @@
         "@types/pg": "^8.20.0",
         "@vitest/ui": "^4.1.2",
         "drizzle-kit": "^0.31.10",
+        "jsonc-parser": "^3.3.1",
         "turbo": "^2.9.3",
         "vitest": "^4.1.2",
       },
@@ -112,20 +113,8 @@
         "typescript": "^5",
       },
     },
-    "packages/telemetry": {
-      "name": "@telemetry",
-      "devDependencies": {
-        "@types/bun": "latest",
-      },
-      "peerDependencies": {
-        "typescript": "^5",
-      },
-    },
     "packages/types": {
       "name": "@types",
-      "devDependencies": {
-        "@types/bun": "latest",
-      },
       "peerDependencies": {
         "typescript": "^5",
       },
@@ -273,8 +262,6 @@
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
-    "@telemetry": ["@telemetry@workspace:packages/telemetry"],
-
     "@turbo/darwin-64": ["@turbo/darwin-64@2.9.3", "", { "os": "darwin", "cpu": "x64" }, "sha512-P8foouaP+y/p+hhEGBoZpzMbpVvUMwPjDpcy6wN7EYfvvyISD1USuV27qWkczecihwuPJzQ1lDBuL8ERcavTyg=="],
 
     "@turbo/darwin-arm64": ["@turbo/darwin-arm64@2.9.3", "", { "os": "darwin", "cpu": "arm64" }, "sha512-SIzEkvtNdzdI50FJDaIQ6kQGqgSSdFPcdn0wqmmONN6iGKjy6hsT+EH99GP65FsfV7DLZTh2NmtTIRl2kdoz5Q=="],
@@ -416,6 +403,8 @@
     "json-schema-resolver": ["json-schema-resolver@3.0.0", "", { "dependencies": { "debug": "^4.1.1", "fast-uri": "^3.0.5", "rfdc": "^1.1.4" } }, "sha512-HqMnbz0tz2DaEJ3ntsqtx3ezzZyDE7G56A/pPY/NGmrPu76UzsWquOpHFRAf5beTNXoH2LU5cQePVvRli1nchA=="],
 
     "json-schema-traverse": ["json-schema-traverse@1.0.0", "", {}, "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug=="],
+
+    "jsonc-parser": ["jsonc-parser@3.3.1", "", {}, "sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ=="],
 
     "light-my-request": ["light-my-request@6.6.0", "", { "dependencies": { "cookie": "^1.0.1", "process-warning": "^4.0.0", "set-cookie-parser": "^2.6.0" } }, "sha512-CHYbu8RtboSIoVsHZ6Ye4cj4Aw/yg2oAFimlF7mNvfDV192LR7nDiKtSIfCuLT7KokPSTn/9kfVLm5OGN0A28A=="],
 

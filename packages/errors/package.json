@@ -1,6 +1,9 @@
 {
   "name": "@errors",
   "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"

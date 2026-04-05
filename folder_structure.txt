@@ -1,0 +1,99 @@
+.
+├── apps
+│   └── api
+│       ├── package.json
+│       ├── src
+│       │   ├── modules
+│       │   │   ├── notification
+│       │   │   │   ├── notification.controller.ts
+│       │   │   │   ├── notification.http
+│       │   │   │   ├── notification.schema.ts
+│       │   │   │   ├── notification.service.ts
+│       │   │   │   └── notification.test.ts
+│       │   │   └── tenant
+│       │   │       ├── tenant.controller.ts
+│       │   │       ├── tenant.schema.ts
+│       │   │       ├── tenant.service.ts
+│       │   │       └── tenant.test.ts
+│       │   ├── routes.ts
+│       │   └── server.ts
+│       └── tsconfig.json
+├── bun.lock
+├── docker-compose.yaml
+├── Dockerfile
+├── folder_structure.txt
+├── package.json
+├── packages
+│   ├── config
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   └── index.ts
+│   │   └── tsconfig.json
+│   ├── context
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   └── index.ts
+│   │   └── tsconfig.json
+│   ├── database
+│   │   ├── drizzle
+│   │   │   ├── 0000_closed_revanche.sql
+│   │   │   └── meta
+│   │   │       ├── _journal.json
+│   │   │       └── 0000_snapshot.json
+│   │   ├── drizzle.config.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── client.test.ts
+│   │   │   ├── client.ts
+│   │   │   ├── common
+│   │   │   │   └── utils.ts
+│   │   │   ├── index.ts
+│   │   │   └── schema
+│   │   │       ├── notification.ts
+│   │   │       ├── template.ts
+│   │   │       ├── tenant.ts
+│   │   │       └── user.ts
+│   │   └── tsconfig.json
+│   ├── errors
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── constants
+│   │   │   │   └── ErrorCodes.ts
+│   │   │   ├── errors
+│   │   │   │   ├── AppError.ts
+│   │   │   │   ├── DatabaseError.ts
+│   │   │   │   └── ValidationError.ts
+│   │   │   ├── handlers
+│   │   │   │   ├── asyncHandler.ts
+│   │   │   │   └── errorHandler.ts
+│   │   │   └── index.ts
+│   │   └── tsconfig.json
+│   ├── logger
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   └── index.ts
+│   │   └── tsconfig.json
+│   ├── types
+│   │   ├── bun -> ../../../../node_modules/.bun/@types+bun@1.3.11/node_modules/@types/bun
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── base.service.ts
+│   │   │   ├── index.ts
+│   │   │   └── response.ts
+│   │   └── tsconfig.json
+│   └── utils
+│       ├── package.json
+│       ├── src
+│       │   ├── idempotency.ts
+│       │   ├── index.ts
+│       │   ├── successResponseHelper.ts
+│       │   └── uuid.ts
+│       └── tsconfig.json
+├── tests
+│   ├── e2e
+│   └── integration
+├── tsconfig.base.json
+├── tsconfig.json
+└── turbo.json
+
+32 directories, 65 files

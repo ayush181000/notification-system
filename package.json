@@ -11,6 +11,7 @@
     "@types/pg": "^8.20.0",
     "@vitest/ui": "^4.1.2",
     "drizzle-kit": "^0.31.10",
+    "jsonc-parser": "^3.3.1",
     "turbo": "^2.9.3",
     "vitest": "^4.1.2"
   },
@@ -59,7 +60,10 @@
     "//env": " ⚙️ Scipts for Env based running",
     "dev:env": "NODE_ENV=development bun --watch apps/api/src/server.ts",
     "test:env": "NODE_ENV=test vitest",
-    "start:prod": "NODE_ENV=production bun apps/api/src/server.ts"
+    "start:prod": "NODE_ENV=production bun apps/api/src/server.ts",
+    "//helper": "HELPER SCRIPTS",
+    "create:package": "bun scripts/create-package.ts",
+    "create:folder-structure": "tree -I \"node_modules|.git\" > folder_structure.txt"
   },
   "packageManager": "bun@1.1.0"
 }

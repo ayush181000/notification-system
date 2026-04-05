@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    /* Language */
+    "target": "ESNext",
+    "lib": ["ESNext"],
+
+    /* Module */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@config/*": ["packages/config/src/*"],
+      "@context/*": ["packages/context/src/*"],
+      "@database/*": ["packages/database/src/*"],
+      "@errors/*": ["packages/errors/src/*"],
+      "@logger/*": ["packages/logger/src/*"],
+      "@types/*": ["packages/types/src/*"],
+      "@utils/*": [
+        "packages/utils/src/*"
+      ],
+      "@cache/*": [
+        "packages/cache/src/*"
+      ]
+    },
+
+    /* Strictness (MAX) */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Safety */
+    "useUnknownInCatchVariables": true,
+
+    /* Interop */
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    /* Performance */
+    "skipLibCheck": true,
+
+    /* Project refs */
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
+  }
+}

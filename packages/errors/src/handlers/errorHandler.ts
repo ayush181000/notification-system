@@ -2,7 +2,6 @@ import { type FastifyReply, type FastifyRequest } from "fastify";
 import { AppError } from "../errors/AppError";
 import { logger } from "@logger";
 import { ERROR_CODES } from "../constants/ErrorCodes";
-import type { ApiResponse } from "@types";
 
 export function globalErrorHandler(
   error: any,
